@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient List</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{images/logo.png}" alt="Logo" width="50" height="50">
+            Patient Management System
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <!-- Add your navigation links here if needed -->
+                <!-- For example: -->
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="#">Home</a>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h2>Patient List</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <a th:href="@{/showAddPatient}" class="btn btn-primary mb-2">Add Patient</a>
+        </div>
+        <div class="col-md-6">
+            <form th:action="@{/searchPatient}" method="get" class="form-inline float-right">
+                <div class="form-group mr-2">
+                    <input type="text" class="form-control" placeholder="Search by name" name="patientName">
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>City</th>
+            <th>Age</th>
+            <th>Date of Birth</th>
+            <th>Action</th> <!-- New column for action buttons -->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Sample Data -->
+        <tr th:each="patient : ${patientList}">
+            <td th:text="${patient.id}">ID</td>
+            <td th:text="${patient.name}">Name</td>
+            <td th:text="${patient.gender}">Gender</td>
+            <td th:text="${patient.email}">Email</td>
+            <td th:text="${patient.city}">City</td>
+            <td th:text="${patient.age}">Age</td>
+            <td th:text="${patient.dateOfBirth}">Date of Birth</td>
+            <td>
+                <a th:href="@{/showUpdatePatient/{id}(id=${patient.id})}" class="btn btn-primary btn-sm">Edit</a>
+                <a th:href="@{/deletePatient/{id}(id=${patient.id})}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        <!-- Add more rows here if needed -->
+        </tbody>
+    </table>
+</div>
+
+<footer class="footer mt-auto py-3 bg-dark text-white">
+    <div class="container text-center">
+        <span class="text-white">Copyright © 2024 Patient Management System</span>
+    </div>
+</footer>
+</body>
+</html>
